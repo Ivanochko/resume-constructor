@@ -3,7 +3,7 @@ package com.resume.constructor.config;
 import javax.servlet.http.HttpServletResponse;
 
 import com.resume.constructor.security.SessionFilter;
-import com.resume.constructor.user.LoginUserDetailsService;
+import com.resume.constructor.user.auth.LoginUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

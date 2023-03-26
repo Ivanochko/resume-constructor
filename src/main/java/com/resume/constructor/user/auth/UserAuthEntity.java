@@ -1,4 +1,4 @@
-package com.resume.constructor.user;
+package com.resume.constructor.user.auth;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserData {
+public class  UserAuthEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,13 +34,5 @@ public class UserData {
     @NotBlank
     @Column(nullable = false)
     private String password;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String firstName;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String lastName;
 
 }

@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation "org.mapstruct:mapstruct:$mapStructVersion"
 	implementation "javax.validation:validation-api:$javaxVersion"
+	implementation 'com.vladmihalcea:hibernate-types-52:2.20.0'
 
 	runtimeOnly 'mysql:mysql-connector-java'
 

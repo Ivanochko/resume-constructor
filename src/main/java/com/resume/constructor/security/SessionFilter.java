@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.resume.constructor.user.LoginUserDetails;
-import com.resume.constructor.user.LoginUserDetailsService;
+import com.resume.constructor.user.auth.LoginUserDetails;
+import com.resume.constructor.user.auth.LoginUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

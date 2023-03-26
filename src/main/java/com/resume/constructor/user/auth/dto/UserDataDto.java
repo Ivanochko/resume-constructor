@@ -1,4 +1,4 @@
-package com.resume.constructor.user.dto;
+package com.resume.constructor.user.auth.dto;
 
 import lombok.Builder;
 import lombok.Getter;

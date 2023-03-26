@@ -1,4 +1,4 @@
-package com.resume.constructor.user;
+package com.resume.constructor.user.auth;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,11 +1,14 @@
 package com.resume.constructor.user;
 
-import java.util.List;
-
-import com.resume.constructor.user.dto.UserDataDto;
+import com.resume.constructor.user.dto.UserAllDataDto;
+import com.resume.constructor.user.personal.dto.UserAllPersonalFieldsDto;
 
 public interface UserService {
 
-    List<UserDataDto> getUsers();
+    void partialUpdate(UserAllPersonalFieldsDto userAllPersonalFieldsDto);
+
+    UserAllPersonalFieldsDto getCurrentUser();
+
+    UserAllDataDto getAllDataOfCurrentUser();
 
 }

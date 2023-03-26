@@ -1,4 +1,4 @@
-package com.resume.constructor.user;
+package com.resume.constructor.user.auth;
 
 import com.resume.constructor.exception.EmailNotFoundException;
 import com.resume.constructor.mappers.UserMapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class LoginUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserAuthRepository userAuthRepository;
     private final UserMapper userMapper;
 
     @Override
@@ -20,9 +20,11 @@ public class LoginUserDetailsService implements UserDetailsService {
     }
 
     public LoginUserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        UserData userData = userRepository.getByEmail(email).orElseThrow(
-                () -> new EmailNotFoundException(email)
-        );
-        return userMapper.toDetails(userData);
+        UserAuthEntity userAuthEntity = userAuthRepository.getByEmail(email)
+                .orElseThrow(
+                        () -> new EmailNotFoundException(email)
+                );
+        return userMapper.toDetails(userAuthEntity);
     }
+
 }
