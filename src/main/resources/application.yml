@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/resume_constructor}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+redis:
+  hostname: ${REDIS_HOSTNAME:localhost}
+  port: ${REDIS_PORT:6379}
+
+security:
+  crossOrigin:
+    url: ${CROSS_ORIGIN_URL:http://localhost:4200/}
