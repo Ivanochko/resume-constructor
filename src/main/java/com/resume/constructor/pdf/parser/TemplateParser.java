@@ -24,12 +24,16 @@ public class TemplateParser {
         context.setVariable("firstName", allDataOfCurrentUser.getFirstName());
         context.setVariable("lastName", allDataOfCurrentUser.getLastName());
         context.setVariable("title", allDataOfCurrentUser.getTitle());
+        context.setVariable("location", allDataOfCurrentUser.getLocation());
+        context.setVariable("phoneNumber", allDataOfCurrentUser.getPhoneNumber());
         context.setVariable("summary", allDataOfCurrentUser.getSummary());
         context.setVariable("contacts", allDataOfCurrentUser.getContacts());
         context.setVariable("works", allDataOfCurrentUser.getWorks());
         context.setVariable("educations", allDataOfCurrentUser.getEducations());
+        context.setVariable("courses", allDataOfCurrentUser.getCourses());
+        context.setVariable("skills", allDataOfCurrentUser.getSkills());
 
-        return templateEngine.process("templates/template", context);
+        return templateEngine.process("templates/main-template", context);
     }
 
 }

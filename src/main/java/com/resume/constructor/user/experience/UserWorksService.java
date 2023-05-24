@@ -20,7 +20,7 @@ public class UserWorksService {
 
     public List<Work> getAllByCurrentUser() {
         Long userId = authService.getCurrentUserId();
-        return userWorksRepository.getAllByUserId(userId);
+        return userWorksRepository.getAllByUserIdOrderByEndDateDesc(userId);
     }
 
     public Work saveNew(CreateWorkDataDto createWorkDataDto) {

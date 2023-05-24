@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${firstName} + '-' + ${lastName}"></title>
+    <style th:inline="css">
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .global-container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .header-container {
+            width: 90%;
+            margin-bottom: 10px;
+        }
+
+        .section-container {
+            width: 90%;
+            margin: 0;
+        }
+
+        .header-content {
+            width: 65%;
+            height: 100%;
+            padding: 0 15px;
+            margin: 5px 0;
+            font-size: 13px;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .header-right {
+            width: 35%;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .username {
+            display: block;
+            font-size: 26px;
+            font-family: "Inter", monospace;
+            font-weight: bolder;
+            color: #0b341e;
+            margin-bottom: 7px;
+        }
+
+        .user-title {
+            display: block;
+            color: #3a463a;
+            margin-bottom: 3px;
+            font-size: 22px;
+        }
+
+        .location, .phoneNumber {
+            display: block;
+            color: #3a463a;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .section-title {
+            width: 25%;
+            height: 100%;
+            font-size: 24px;
+            font-family: "Inter", monospace;
+            font-weight: bolder;
+            text-align: center;
+            vertical-align: top;
+            color: #146038;
+        }
+
+        .section-content {
+            width: 75%;
+            height: 100%;
+            padding: 15px 0;
+            margin: 5px 0;
+            font-size: 13px;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .section-content-container {
+            border-top: 2px solid #81bd94;
+            padding-top: 15px;
+            height: 95%;
+        }
+
+        .contacts .contacts-value {
+            font-style: italic;
+        }
+
+        .work-container, .education-container {
+            margin: 5px 0 10px 0;
+        }
+
+        .works-data, .education-data, .course-data {
+            display: block;
+        }
+
+        .works-jobTitle, .education-title, .course-title {
+            font-size: 18px;
+            font-family: "Inter", monospace;
+            font-weight: bolder;
+            color: #285e40;
+        }
+
+        .works-company, .education-degree, .course-place, .skills-label {
+            font-size: 15px;
+            font-family: "Inter", monospace;
+            font-weight: bolder;
+            color: #0e2116;
+            margin-bottom: 3px;
+        }
+
+        .works-dates, .education-year, .course-year {
+            color: #434843;
+            margin-bottom: 3px;
+        }
+
+        .skills-value {
+            color: #434843;
+        }
+    </style>
+    <link rel="preconnect" th:href="@{'https://fonts.googleapis.com'}"/>
+    <link rel="preconnect" th:href="@{'https://fonts.gstatic.com'}" crossorigin="anonymous"/>
+    <link th:href="@{'https://fonts.googleapis.com/css2?family=Inter:wght@600&amp;family=Roboto:wght@300&amp;display=swap'}"
+          rel="stylesheet"/>
+</head>
+
+<body>
+<div class="global-container">
+
+    <table class="header-container">
+        <tr>
+            <td class="header-content">
+                <span th:text="${firstName} + ' ' + ${lastName}" class="username"></span>
+                <span th:text="${title}" class="user-title"></span>
+            </td>
+            <td class="header-right">
+                <span th:text="${location}" class="location"></span>
+                <span th:text="${phoneNumber}" class="phoneNumber"></span>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${summary != null && summary.length() != 0}">
+        <tr>
+            <td class="section-title">
+                About me
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <span th:text="${summary}"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${!contacts.isEmpty()}">
+        <tr>
+            <td class="section-title">
+                Contacts
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <div class="contacts" th:each="contact: ${contacts}">
+                        *
+                        <span class="contacts-label" th:text="${contact.label}"></span>
+                        <span class="contacts-value" th:text="${contact.value}"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${!works.isEmpty()}">
+        <tr>
+            <td class="section-title">
+                Experience
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <div class="works" th:each="work: ${works}">
+                        <div class="work-container">
+                            <span class="works-jobTitle works-data" th:text="'* ' + ${work.jobTitle}"></span>
+                            <span class="works-company works-data" th:text="${work.company}"></span>
+                            <span class="works-dates works-data"
+                                  th:if="${work.isCurrent}"
+                                  th:text="${work.startDate} + ' - now'"></span>
+                            <span class="works-dates works-data"
+                                  th:unless="${work.isCurrent}"
+                                  th:text="${work.startDate} + ' - ' + ${work.endDate}"></span>
+                            <span class="works-participation works-data" th:text="${work.participation}"></span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${!skills.isEmpty()}">
+        <tr>
+            <td class="section-title">
+                Skills
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <div class="skills" th:each="skill: ${skills}">
+                        <div class="skill-container">
+                            *
+                            <span class="skills-label" th:text="${skill.name}"></span> -
+                            <span class="skills-value"
+                                  th:text="${#strings.capitalize(#strings.toLowerCase(skill.skillLevel.name()))}"></span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${!educations.isEmpty()}">
+        <tr>
+            <td class="section-title">
+                Education
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <div class="educations" th:each="education: ${educations}">
+                        <div class="education-container">
+                            <span class="education-title education-data" th:text="'* ' + ${education.title}"></span>
+                            <span class="education-degree education-data" th:text="${education.degree}"></span>
+                            <span class="education-year education-data" th:text="${education.yearOfGraduation}"></span>
+                            <span class="education-place education-data"
+                                  th:text="${education.placeOfGraduation}"></span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="section-container" th:if="${!courses.isEmpty()}">
+        <tr>
+            <td class="section-title">
+                Courses
+            </td>
+            <td class="section-content">
+                <div class="section-content-container">
+                    <div class="educations" th:each="course: ${courses}">
+                        <div class="course-container">
+                            <span class="course-title course-data" th:text="'* ' + ${course.title}"></span>
+                            <span class="course-place course-data" th:text="${course.placeOfLearning}"></span>
+                            <span class="course-year course-data" th:text="${course.yearOfCompletion}"></span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+</body>
+
+</html>

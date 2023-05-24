@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EducationRepository extends JpaRepository<Education, Long> {
 
-    List<Education> getAllByUserId(Long userId);
+    List<Education> getAllByUserIdOrderByYearOfGraduationDesc(Long userId);
 
 }

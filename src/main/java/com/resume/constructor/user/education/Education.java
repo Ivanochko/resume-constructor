@@ -12,6 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.resume.constructor.user.personal.UserPersonalEntity;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,9 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(
+        value = {"hibernateLazyInitializer"}
+)
 public class Education {
 
     @Id
@@ -46,6 +50,7 @@ public class Education {
 
     private String placeOfGraduation;
 
+    @JsonIgnore
     @JsonIgnoreProperties("userEducations")
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @ManyToOne(targetEntity = UserPersonalEntity.class, fetch = FetchType.EAGER)

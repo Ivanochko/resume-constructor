@@ -82,16 +82,16 @@
             font-style: italic;
         }
 
-        .job, .education {
+        .job, .course {
             margin-bottom: 5px;
         }
 
-        .job .job-title, .education .job-title, .job .education-title, .education .education-title {
+        .job .job-title, .course .job-title, .job .course-title, .course .course-title {
             font-size: 16px;
             font-weight: bolder;
         }
 
-        .job .job-title::before, .education .job-title::before, .job .education-title::before, .education .education-title::before {
+        .job .job-title::before, .course .job-title::before, .job .course-title::before, .course .course-title::before {
             content: "○";
         }
 
@@ -115,7 +115,7 @@
                     <span th:text="${summary}"></span>
                 </div>
             </div>
-            <div class="education cv-section">
+            <div class="course cv-section">
                 <div class="cv-section-header">
                     Contacts
                 </div>
@@ -156,18 +156,18 @@
                     Education
                 </div>
                 <div class="cv-section-content">
-                    <div class="education" th:each="education: ${educations}">
-                        <div class="education-title">
-                            <span th:text="${education.title}"></span>
+                    <div class="course" th:each="course: ${educations}">
+                        <div class="course-title">
+                            <span th:text="${course.title}"></span>
                         </div>
-                        <div class="education-place">
-                            <span th:text="${education.placeOfGraduation}"></span>
+                        <div class="course-place">
+                            <span th:text="${course.placeOfGraduation}"></span>
                         </div>
-                        <div class="education-year">
-                            <span th:text="${education.yearOfGraduation}"></span>
+                        <div class="course-year">
+                            <span th:text="${course.yearOfGraduation}"></span>
                         </div>
-                        <div class="education-degree">
-                            <span th:text="${education.degree}"></span>
+                        <div class="course-degree">
+                            <span th:text="${course.degree}"></span>
                         </div>
                     </div>
                 </div>

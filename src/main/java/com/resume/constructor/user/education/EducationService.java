@@ -20,7 +20,7 @@ public class EducationService {
 
     public List<Education> getAllByCurrentUser() {
         Long userId = authService.getCurrentUserId();
-        return educationRepository.getAllByUserId(userId);
+        return educationRepository.getAllByUserIdOrderByYearOfGraduationDesc(userId);
     }
 
     public Education saveNew(CreateEducationDto createEducationDto) {
