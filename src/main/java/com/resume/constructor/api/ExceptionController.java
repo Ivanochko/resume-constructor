@@ -4,6 +4,7 @@ import com.resume.constructor.exception.EmailNotFoundException;
 import com.resume.constructor.exception.UserByEmailAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,8 +25,14 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler({ AuthenticationException.class })
-    public ResponseEntity<Object> handleAuthenticationException(Exception exception) {
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ResponseBody
+    @ExceptionHandler({ HttpMessageNotReadableException.class })
+    public ResponseEntity<Object> handleAuthenticationException(HttpMessageNotReadableException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }
