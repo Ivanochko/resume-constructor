@@ -5,6 +5,7 @@ import com.resume.constructor.user.dto.UserAllDataDto;
 import com.resume.constructor.user.personal.dto.UserAllPersonalFieldsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class UserController {
         return userService.getAllDataOfCurrentUser();
     }
 
-    @GetMapping("removeAll")
+    @DeleteMapping("removeAll")
     @Operation(summary = "Remove all user personal data")
     public void removeAll(){
         userService.removeAllDataOfCurrentUser();
