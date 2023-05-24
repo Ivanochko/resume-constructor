@@ -1,5 +1,6 @@
 package com.resume.constructor.user.personal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,10 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.resume.constructor.user.course.Course;
 import com.resume.constructor.user.education.Education;
+import com.resume.constructor.user.experience.Work;
 import com.resume.constructor.user.personal.dto.Contact;
 import com.resume.constructor.user.personal.dto.Sex;
-import com.resume.constructor.user.experience.Work;
+import com.resume.constructor.user.skills.Skill;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +35,9 @@ import org.hibernate.annotations.TypeDef;
 @NoArgsConstructor
 @AllArgsConstructor
 @TypeDef(name = "json", typeClass = JsonStringType.class)
+@JsonIgnoreProperties(
+        value = {"hibernateLazyInitializer"}
+)
 public class UserPersonalEntity {
 
     @Id
@@ -61,11 +67,19 @@ public class UserPersonalEntity {
     private List<Contact> contacts = new ArrayList<>();
 
     @JsonIgnoreProperties("user")
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     private Set<Work> userWorks;
 
     @JsonIgnoreProperties("user")
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     private Set<Education> userEducations;
+
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    private Set<Course> userCourses;
+
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    private Set<Skill> userSkills;
 
 }
