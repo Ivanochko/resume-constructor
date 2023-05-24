@@ -36,4 +36,10 @@ public class UserController {
         return userService.getAllDataOfCurrentUser();
     }
 
+    @GetMapping("removeAll")
+    @Operation(summary = "Remove all user personal data")
+    public void removeAll(){
+        userService.removeAllDataOfCurrentUser();
+    }
+
 }

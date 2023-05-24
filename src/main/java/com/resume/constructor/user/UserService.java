@@ -11,4 +11,7 @@ public interface UserService {
 
     UserAllDataDto getAllDataOfCurrentUser();
 
+    void removeAllDataOfCurrentUser();
+
+
 }

@@ -6,6 +6,8 @@ import com.resume.constructor.mappers.UserMapper;
 import com.resume.constructor.security.AuthService;
 import com.resume.constructor.user.auth.UserAuthEntity;
 import com.resume.constructor.user.auth.UserAuthRepository;
+import com.resume.constructor.user.course.Course;
+import com.resume.constructor.user.course.CourseService;
 import com.resume.constructor.user.dto.UserAllDataDto;
 import com.resume.constructor.user.education.Education;
 import com.resume.constructor.user.education.EducationService;
@@ -14,7 +16,10 @@ import com.resume.constructor.user.experience.Work;
 import com.resume.constructor.user.personal.dto.UserAllPersonalFieldsDto;
 import com.resume.constructor.user.personal.UserPersonalEntity;
 import com.resume.constructor.user.personal.UserPersonalRepository;
+import com.resume.constructor.user.skills.Skill;
+import com.resume.constructor.user.skills.SkillService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +28,9 @@ public class UserServiceImpl implements UserService {
 
     private final AuthService authService;
     private final EducationService educationService;
+    private final CourseService courseService;
     private final UserWorksService worksService;
+    private final SkillService skillService;
     private final UserAuthRepository userAuthRepository;
     private final UserPersonalRepository userPersonalRepository;
     private final UserMapper userMapper;
@@ -45,13 +52,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAllDataDto getAllDataOfCurrentUser() {
-        List<Work> works = worksService.getAllByCurrentUser();
-        List<Education> educations = educationService.getAllByCurrentUser();
         UserAllPersonalFieldsDto personalFieldsDto = getCurrentUser();
         UserAllDataDto userAllDataDto = userMapper.toAllData(personalFieldsDto);
+
+        List<Work> works = worksService.getAllByCurrentUser();
+        List<Education> educations = educationService.getAllByCurrentUser();
+        List<Course> courses = courseService.getAllByCurrentUser();
+        List<Skill> skills = skillService.getAllByCurrentUser();
+
         userAllDataDto.setEducations(educations);
+        userAllDataDto.setCourses(courses);
         userAllDataDto.setWorks(works);
+        userAllDataDto.setSkills(skills);
         return userAllDataDto;
+    }
+
+    @Override
+    public void removeAllDataOfCurrentUser() {
+        Long currentUserId = authService.getCurrentUserId();
+        authService.removeAllAuthData(currentUserId);
+        userPersonalRepository.deleteById(currentUserId);
+        SecurityContextHolder.clearContext();
     }
 
     private void partialUpdateAuthEntity(UserAllPersonalFieldsDto userAllPersonalFieldsDto, Long userId) {

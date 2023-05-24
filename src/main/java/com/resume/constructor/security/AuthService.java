@@ -11,4 +11,6 @@ public interface AuthService {
 
     Long getCurrentUserId();
 
+    void removeAllAuthData(Long userId);
+
 }

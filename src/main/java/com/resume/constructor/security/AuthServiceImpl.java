@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
+    private static final String USER_NOT_FOUND_TEMPLATE = "User with email %s not found!";
+
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final SessionRegistry sessionRegistry;
@@ -55,11 +57,16 @@ public class AuthServiceImpl implements AuthService {
     public Long getCurrentUserId() {
         LoginUserDetails loginUserDetails =
                 (LoginUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserAuthEntity> byEmail = userAuthRepository.getByEmail(loginUserDetails.getUsername());
-        if (byEmail.isEmpty()) {
-            throw new UsernameNotFoundException("User with email " + loginUserDetails.getUsername() + " not found!");
-        }
-        return byEmail.get().getId();
+        String username = loginUserDetails.getUsername();
+        Optional<UserAuthEntity> byEmail = userAuthRepository.getByEmail(username);
+        return byEmail.orElseThrow(
+                        () -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_TEMPLATE, username)))
+                .getId();
+    }
+
+    @Override
+    public void removeAllAuthData(Long userId) {
+        userAuthRepository.deleteById(userId);
     }
 
     private void saveNewUser(UserRegisterDto userRegisterDto) {
