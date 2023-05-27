@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cv-container {
+            background: #effaff;
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            font-family: Arial serif;
+        }
+
+        .cv-container .cv-left-part, .cv-container .cv-right-part {
+            height: 95%;
+            box-sizing: border-box;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .cv-container .cv-left-part {
+            width: 55%;
+            padding-left: 7px;
+            padding-right: 5px;
+            background-color: #fff;
+        }
+
+        .cv-container .cv-right-part {
+            width: 40%;
+            padding-right: 7px;
+        }
+
+        .name {
+            color: black;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .title {
+            color: black;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .cv-section {
+            margin-bottom: 15px;
+        }
+
+        .cv-section .cv-section-header {
+            margin-bottom: 5px;
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .cv-section .cv-section-content {
+            font-size: 14px;
+        }
+
+        .contacts {
+            margin: 2px;
+        }
+
+        .contacts .contacts-label {
+            margin-left: 5px;
+            font-weight: 300;
+        }
+
+        .contacts .contacts-value {
+            font-style: italic;
+        }
+
+        .job, .course {
+            margin-bottom: 5px;
+        }
+
+        .job .job-title, .course .job-title, .job .course-title, .course .course-title {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+
+        .job .job-title::before, .course .job-title::before, .job .course-title::before, .course .course-title::before {
+            content: "○";
+        }
+
+    </style>
+</head>
+<body>
+
+
+<table class="cv-container" id="cv-container">
+    <tr>
+        <td class="cv-left-part">
+            <div class="cv-section">
+                <div class="name"><span th:text="${firstName} + ' ' + ${lastName}"></span></div>
+                <div class="title"><span th:text="${title}"></span></div>
+            </div>
+            <div class="summary cv-section">
+                <div class="cv-section-header">
+                    Summary
+                </div>
+                <div class="cv-section-content">
+                    <span th:text="${summary}"></span>
+                </div>
+            </div>
+            <div class="course cv-section">
+                <div class="cv-section-header">
+                    Contacts
+                </div>
+                <div class="cv-section-content">
+                    <div class="contacts" th:each="contact: ${contacts}">
+                        ○
+                        <span class="contacts-label" th:text="${contact.label}"></span>
+                        <span class="contacts-value" th:text="${contact.value}"></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+        <td class="cv-right-part">
+            <div class="experience cv-section">
+                <div class="cv-section-header">
+                    Experience
+                </div>
+                <div class="cv-section-content">
+                    <div class="job" th:each="work: ${works}">
+                        <div class="job-title">
+                            <span th:text="${work.jobTitle}"></span>
+                        </div>
+                        <div class="job-company">
+                            <span th:text="${work.company}"></span>
+                        </div>
+                        <div class="job-dates">
+                            <span th:text="${work.startDate} + ' ' + ${work.endDate}"></span>
+                        </div>
+                        <div class="job-dates">
+                            <span th:text="${work.participation}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cv-section">
+                <div class="cv-section-header">
+                    Education
+                </div>
+                <div class="cv-section-content">
+                    <div class="course" th:each="course: ${educations}">
+                        <div class="course-title">
+                            <span th:text="${course.title}"></span>
+                        </div>
+                        <div class="course-place">
+                            <span th:text="${course.placeOfGraduation}"></span>
+                        </div>
+                        <div class="course-year">
+                            <span th:text="${course.yearOfGraduation}"></span>
+                        </div>
+                        <div class="course-degree">
+                            <span th:text="${course.degree}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>
